@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>135</height>
+    <width>914</width>
+    <height>319</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -35,20 +35,79 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="schrijven">
+       <widget class="QPushButton" name="pushButton_2">
         <property name="text">
-         <string>Schrijven</string>
+         <string>Data inlezen</string>
         </property>
        </widget>
       </item>
      </layout>
     </item>
     <item>
-     <widget class="QLabel" name="status">
-      <property name="text">
-       <string>Status</string>
+     <layout class="QHBoxLayout" name="horizontalLayout_3">
+      <item>
+       <widget class="QGroupBox" name="coils">
+        <property name="title">
+         <string>Coils</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QGroupBox" name="DI">
+        <property name="title">
+         <string>DI</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QGroupBox" name="IR">
+        <property name="title">
+         <string>IR</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QGroupBox" name="HR">
+        <property name="title">
+         <string>HR</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <widget class="Line" name="line">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
       </property>
      </widget>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <item>
+       <widget class="QLabel" name="status">
+        <property name="text">
+         <string>Status</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Minimum</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+     </layout>
     </item>
    </layout>
   </widget>
@@ -57,7 +116,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>400</width>
+     <width>914</width>
      <height>21</height>
     </rect>
    </property>

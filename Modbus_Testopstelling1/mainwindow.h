@@ -2,12 +2,15 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QtWidgets>
 #include <QModbusDataUnit>
 #include <QModbusClient>
 #include <QUrl>
 #include <QModbusTcpClient>
 #include <QMessageBox>
-#include <writeregistermodel.h>
+#include <QModbusDataUnit>
+#include <QModbusReply>
+#include <QDebug>
 
 namespace Ui {
 class MainWindow;
@@ -19,18 +22,24 @@ class MainWindow : public QMainWindow
 
 public:
     explicit MainWindow(QWidget *parent = 0);
-    QModbusDataUnit writeRequest() const;
     ~MainWindow();
 
 private slots:
     void on_pushButton_clicked();
 
-    void on_schrijven_clicked();
+    void on_pushButton_2_clicked();
+    void lezenCoils(void);
+    void lezenDI(void);
+    void lezenIR(void);
+    void lezenHR(void);
 
 private:
     Ui::MainWindow *ui;
     QModbusClient *m_modbusDevice = NULL;
-    WriteRegisterModel *writeModel;
+    QList<QCheckBox*> m_coils;
+    QList<QCheckBox*> m_DI;
+    QList<QLineEdit*> m_IR;
+    QList<QLineEdit*> m_HR;
 };
 
 #endif // MAINWINDOW_H
