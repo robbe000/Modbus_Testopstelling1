@@ -10,6 +10,10 @@ MainWindow::MainWindow(QWidget *parent) :
     this->ui->status->setText("Wachten op userinput");
     this->ui->poort->setText("192.168.7.145:502");
 
+    //Lees en schrijf knoppen uitschakelen
+    this->ui->pushButton_2->setEnabled(0);
+    this->ui->pushButton_3->setEnabled(0);
+
     //Coils klaar maken aan de hand van QCheckBoxes in een QVBoxLayout
     QVBoxLayout *coilsLayout = new QVBoxLayout;
     this->ui->coils->setLayout(coilsLayout);
@@ -25,6 +29,7 @@ MainWindow::MainWindow(QWidget *parent) :
     for(int i=0;i<10;i++)
     {
         m_DI.append(new QCheckBox);
+        m_DI[i]->setEnabled(0);
         DILayout->addWidget(m_DI[i]);
     }
 
@@ -34,6 +39,7 @@ MainWindow::MainWindow(QWidget *parent) :
     for(int i = 0;i<10;i++)
     {
         m_IR.append(new QLineEdit);
+        m_IR[i]->setProperty("readOnly", 1);
         IRLayout->addWidget(m_IR[i]);
     }
 
@@ -43,6 +49,7 @@ MainWindow::MainWindow(QWidget *parent) :
     for(int i = 0;i<10;i++)
     {
         m_HR.append(new QLineEdit);
+        m_HR[i]->setProperty("readOnly", 1);
         HRLayout->addWidget(m_HR[i]);
     }
 
@@ -91,6 +98,8 @@ void MainWindow::on_pushButton_clicked()
     }
     else
     {
+        this->ui->pushButton_2->setEnabled(1);
+        this->ui->pushButton_3->setEnabled(1);
         this->ui->status->setText("Connectie gelukt!");
     }
 }
@@ -222,4 +231,29 @@ void MainWindow::lezenHR()
             m_HR[i]->setText(QString::number(unit.value(i)));
         }
     }
+}
+
+void MainWindow::on_pushButton_3_clicked()
+{
+    QModbusDataUnit unitCoils = QModbusDataUnit(QModbusDataUnit::Coils, 0, 10);
+
+    for(int i =0;i<10;i++)
+    {
+        unitCoils.setValue(i, m_coils[i]->checkState());
+    }
+
+    if(QModbusReply *antwoord = m_modbusDevice->sendWriteRequest(unitCoils, 1))
+    {
+        if(antwoord->error() != QModbusDevice::NoError)
+        {
+            this->ui->status->setText("Error tijdens schrijven" + antwoord->errorString());
+        }
+    }
+
+}
+
+void MainWindow::on_actionAbout_triggered()
+{
+    about *over = new about;
+    over->show();
 }

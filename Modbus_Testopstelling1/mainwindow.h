@@ -1,6 +1,8 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include "about.h"
+
 #include <QMainWindow>
 #include <QtWidgets>
 #include <QModbusDataUnit>
@@ -32,6 +34,10 @@ private slots:
     void lezenDI(void);
     void lezenIR(void);
     void lezenHR(void);
+
+    void on_pushButton_3_clicked();
+
+    void on_actionAbout_triggered();
 
 private:
     Ui::MainWindow *ui;
