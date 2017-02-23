@@ -34,10 +34,13 @@ private slots:
     void lezenDI(void);
     void lezenIR(void);
     void lezenHR(void);
+    void lezen(void);
 
     void on_pushButton_3_clicked();
 
     void on_actionAbout_triggered();
+
+    void on_knop_adresInlezen_clicked();
 
 private:
     Ui::MainWindow *ui;

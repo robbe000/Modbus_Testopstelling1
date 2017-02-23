@@ -9,10 +9,16 @@ MainWindow::MainWindow(QWidget *parent) :
     this->setWindowTitle("Modbus Lokale Test");
     this->ui->status->setText("Wachten op userinput");
     this->ui->poort->setText("192.168.7.145:502");
+    this->ui->radio_coils->setChecked(1);
+
+    //Menu tabs een naam geven
+    this->ui->tabWidget->setTabText(0, "Voorbeeld PR");
+    this->ui->tabWidget->setTabText(1, "Op adres");
 
     //Lees en schrijf knoppen uitschakelen
     this->ui->pushButton_2->setEnabled(0);
     this->ui->pushButton_3->setEnabled(0);
+    this->ui->knop_adresInlezen->setEnabled(0);
 
     //Coils klaar maken aan de hand van QCheckBoxes in een QVBoxLayout
     QVBoxLayout *coilsLayout = new QVBoxLayout;
@@ -100,6 +106,7 @@ void MainWindow::on_pushButton_clicked()
     {
         this->ui->pushButton_2->setEnabled(1);
         this->ui->pushButton_3->setEnabled(1);
+        this->ui->knop_adresInlezen->setEnabled(1);
         this->ui->status->setText("Connectie gelukt!");
     }
 }
@@ -233,6 +240,22 @@ void MainWindow::lezenHR()
     }
 }
 
+void MainWindow::lezen()
+{
+    qDebug() << "HR aan het lezen";
+
+    QModbusReply *antwoord = qobject_cast<QModbusReply* >(sender());
+
+    if(antwoord->error() == QModbusDevice::NoError)
+    {
+        qDebug() << "Geen error tijdens ontvangen van data.";
+
+        const QModbusDataUnit unit = antwoord->result();
+
+        this->ui->uitkomst->setText(QString::number(unit.value(0)));
+    }
+}
+
 void MainWindow::on_pushButton_3_clicked()
 {
     QModbusDataUnit unitCoils = QModbusDataUnit(QModbusDataUnit::Coils, 0, 10);
@@ -256,4 +279,41 @@ void MainWindow::on_actionAbout_triggered()
 {
     about *over = new about;
     over->show();
+}
+
+void MainWindow::on_knop_adresInlezen_clicked()
+{
+    QModbusDataUnit unit;
+
+    //welk soort tabel
+    if(this->ui->radio_coils->isChecked())
+    {
+        unit = QModbusDataUnit(QModbusDataUnit::Coils, this->ui->adres->text().toInt(), 1);
+    }
+    else if(this->ui->radio_DI->isChecked())
+    {
+        unit = QModbusDataUnit(QModbusDataUnit::DiscreteInputs, this->ui->adres->text().toInt(), 1);
+    }
+    else if(this->ui->radio_HR->isChecked())
+    {
+        unit = QModbusDataUnit(QModbusDataUnit::HoldingRegisters, this->ui->adres->text().toInt(), 1);
+    }
+    else if(this->ui->radio_IR->isChecked())
+    {
+        unit = QModbusDataUnit(QModbusDataUnit::InputRegisters, this->ui->adres->text().toInt(), 1);
+    }
+    else
+    {
+        //er is geen knop geselecteerd
+        return;
+    }
+
+    if(QModbusReply *antwoord = m_modbusDevice->sendReadRequest(unit, 1))
+    {
+        if(!antwoord->isFinished())
+        {
+            qDebug() << "Vraag goed verzonden.";
+            connect(antwoord, &QModbusReply::finished, this, &MainWindow::lezen);
+        }
+    }
 }
