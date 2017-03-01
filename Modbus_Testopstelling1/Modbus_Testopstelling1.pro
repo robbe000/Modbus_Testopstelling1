@@ -27,12 +27,15 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += main.cpp\
         mainwindow.cpp \
     about.cpp \
-    tabel.cpp
+    tabel.cpp \
+    tabelnieuw.cpp
 
 HEADERS  += mainwindow.h \
     about.h \
-    tabel.h
+    tabel.h \
+    tabelnieuw.h
 
 FORMS    += mainwindow.ui \
     about.ui \
-    tabel.ui
+    tabel.ui \
+    tabelnieuw.ui

@@ -201,6 +201,13 @@
           </property>
          </widget>
         </item>
+        <item>
+         <widget class="QPushButton" name="tabelOpenenNieuw">
+          <property name="text">
+           <string>Tabel Openen (Nieuwe versie)</string>
+          </property>
+         </widget>
+        </item>
        </layout>
       </widget>
      </widget>

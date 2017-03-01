@@ -370,3 +370,10 @@ void MainWindow::on_tabelOpenen_clicked()
     tabelScherm->setModbusDevice(m_modbusDevice);
     tabelScherm->show();
 }
+
+void MainWindow::on_tabelOpenenNieuw_clicked()
+{
+    tabelNieuw *tabelScherm = new tabelNieuw;
+    tabelScherm->setModbusDevice(m_modbusDevice);
+    tabelScherm->show();
+}

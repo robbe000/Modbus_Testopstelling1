@@ -3,6 +3,7 @@
 
 #include "about.h"
 #include "tabel.h"
+#include "tabelnieuw.h"
 
 #include <QMainWindow>
 #include <QtWidgets>
@@ -46,6 +47,8 @@ private slots:
     void on_knop_adresInlezen_clicked();
 
     void on_tabelOpenen_clicked();
+
+    void on_tabelOpenenNieuw_clicked();
 
 private:
     Ui::MainWindow *ui;
