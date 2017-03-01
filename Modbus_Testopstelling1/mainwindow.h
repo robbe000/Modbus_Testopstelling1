@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include "about.h"
+#include "tabel.h"
 
 #include <QMainWindow>
 #include <QtWidgets>
@@ -25,6 +26,7 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
+    QModbusClient* getModbusDevice(void);
 
 private slots:
     void on_pushButton_clicked();
@@ -35,12 +37,15 @@ private slots:
     void lezenIR(void);
     void lezenHR(void);
     void lezen(void);
+    void lezenFloat(void);
 
     void on_pushButton_3_clicked();
 
     void on_actionAbout_triggered();
 
     void on_knop_adresInlezen_clicked();
+
+    void on_tabelOpenen_clicked();
 
 private:
     Ui::MainWindow *ui;

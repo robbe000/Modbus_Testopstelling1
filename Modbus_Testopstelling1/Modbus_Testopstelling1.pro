@@ -26,10 +26,13 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    about.cpp
+    about.cpp \
+    tabel.cpp
 
 HEADERS  += mainwindow.h \
-    about.h
+    about.h \
+    tabel.h
 
 FORMS    += mainwindow.ui \
-    about.ui
+    about.ui \
+    tabel.ui
